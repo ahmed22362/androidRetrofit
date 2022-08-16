@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.models.Article
+import com.example.myapplication.models.POJO.Article
 import com.squareup.picasso.Picasso
 
 class CustomAdapter(private val mList: List<Article>) :

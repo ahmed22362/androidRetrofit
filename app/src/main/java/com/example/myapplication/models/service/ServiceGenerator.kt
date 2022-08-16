@@ -1,18 +1,17 @@
-package com.example.myapplication.generator
+package com.example.myapplication.models.service
 
+import com.example.myapplication.view.interfaces.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceGenerator {
 
-    private const val base_url: String = "https://newsapi.org/v2/"
-
 
     private val client= OkHttpClient.Builder().build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl(base_url)
+        .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
