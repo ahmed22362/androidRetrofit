@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">news App</string>
+    <string name="card_view_tv_title">title</string>
+    <string name="card_view_tv_Author">Author</string>
 </resources>

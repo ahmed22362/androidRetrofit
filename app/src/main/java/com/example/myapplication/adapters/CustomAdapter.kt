@@ -22,10 +22,7 @@ class CustomAdapter(private val mList: List<Article>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = mList[position]
-        Picasso.get().load(article.urlToImage).into(holder.imageView)
-        holder.titleTextView.text = article.title
-        holder.authorTextView.text = article.author
-
+        holder.bind(article)
     }
 
     override fun getItemCount(): Int {
@@ -33,9 +30,24 @@ class CustomAdapter(private val mList: List<Article>) :
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val imageView: ImageView = ItemView.findViewById(R.id.imageview)
-        val titleTextView: TextView = ItemView.findViewById(R.id.title_tv)
-        val authorTextView: TextView = ItemView.findViewById(R.id.author_tv)
+        private val newsImageView: ImageView = ItemView.findViewById(R.id.img_NewsImage)
+        private val titleTextView: TextView = ItemView.findViewById(R.id.tv_title)
+        private val authorTextView: TextView = ItemView.findViewById(R.id.tv_author)
+
+        fun bind(article: Article){
+            bindImage(article.urlToImage)
+            bindTitle(article.title)
+            bindAuthor(article.author)
+        }
+        private fun bindImage(url:String){
+            Picasso.get().load(url).into(newsImageView)
+        }
+        private fun bindTitle(title:String){
+            titleTextView.text = title
+        }
+        private fun bindAuthor(author:String){
+            authorTextView.text = author
+        }
     }
 }
 

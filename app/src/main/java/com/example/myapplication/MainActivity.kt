@@ -3,7 +3,7 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.adapters.CustomAdapter
@@ -19,36 +19,37 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val apikey = "f45d64710a2641d3a62beaa221604408"
 
-        val btn = findViewById<Button>(R.id.main_btn)
-        val rv = findViewById<RecyclerView>(R.id.recyclerView)
+        val rvNews = findViewById<RecyclerView>(R.id.recyclerView)
 
 
         val serviceGenerator = ServiceGenerator.buildService(APIService::class.java)
-        val call = serviceGenerator.getLatestNews("techcrunch", apikey)
+        val call =
+            serviceGenerator.getLatestNews(ServiceGenerator.QUERY_STRING, ServiceGenerator.API_KEY)
+        call.enqueue(object : Callback<NewsResponse> {
+            override fun onResponse(
+                call: Call<NewsResponse>,
+                response: Response<NewsResponse>
+            ) {
+                if (response.body()?.status.equals(ServiceGenerator.STATUS_OK)) {
+                    rvNews.apply {
+                        layoutManager = LinearLayoutManager(this@MainActivity)
+                        adapter = response.body()?.let { it1 -> CustomAdapter(it1.articles) }
 
-        btn.setOnClickListener {
-            call.enqueue(object : Callback<NewsResponse> {
-                override fun onResponse(
-                    call: Call<NewsResponse>,
-                    response: Response<NewsResponse>
-                ) {
-                    if (response.body()?.status.equals("ok")) {
-                        rv.apply {
-                            layoutManager = LinearLayoutManager(this@MainActivity)
-                            adapter = response.body()?.let { it1 -> CustomAdapter(it1.articles) }
-
-                            Log.d("Success", response.body()?.articles.toString())
-                        }
+                        Log.d(ServiceGenerator.TAG_SUCCESS, response.body()?.articles.toString())
                     }
+                }else{
+                    Toast.makeText(this@MainActivity,"can't get data check you internet connection"
+                        ,Toast.LENGTH_LONG).show()
                 }
+            }
 
-                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                    Log.e("failed", t.message.toString())
-                }
+            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                Toast.makeText(this@MainActivity,"call failed check you internet connection"
+                    ,Toast.LENGTH_LONG).show()
+                Log.e(ServiceGenerator.TAG_Failure, t.message.toString())
+            }
 
-            })
-        }
+        })
     }
 }

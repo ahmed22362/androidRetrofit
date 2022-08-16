@@ -6,18 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="click me"
-        android:id="@+id/main_btn"
-        android:layout_gravity="center"
-        />
+
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerView"
     android:layout_width = "match_parent"
     android:layout_height= "match_parent"
-    android:padding="10dp"
+    android:padding="@dimen/Main_rv_padding"
     tools:itemCount="5"
     tools:listitem="@layout/card_view_news_design"
     />

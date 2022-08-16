@@ -1,5 +1,13 @@
 package com.example.myapplication.models
 
-data class Article ( var title : String? = null,
-                     var author : String? = null,
-                     var urlToImage : String? = null,)
+import com.google.gson.annotations.SerializedName
+
+data class Article (
+    @SerializedName("title")
+    var title : String ,
+
+    @SerializedName("author")
+    var author : String,
+
+    @SerializedName("urlToImage")
+    var urlToImage : String)

@@ -2,49 +2,58 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_margin="10dp"
     app:cardElevation="6dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="5dp">
 
-
         <ImageView
-            android:id="@+id/imageview"
+            android:id="@+id/img_NewsImage"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginTop="5dp"
             android:padding="5dp"
-            />
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp">
+            android:layout_margin="@dimen/news_card_IV_margin"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_NewsImage"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/title_tv"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="title"
-                android:textSize="15sp"
+                android:text="@string/card_view_tv_title"
+                android:textSize="@dimen/news_card_textSize"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/author_tv"
+                android:id="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Author"
                 android:padding="5dp"
-                android:textSize="15sp"
-                />
+                android:text="@string/card_view_tv_Author"
+                android:textSize="@dimen/news_card_textSize" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
 
-    </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
