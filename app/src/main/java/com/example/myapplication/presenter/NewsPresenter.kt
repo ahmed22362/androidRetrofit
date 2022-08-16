@@ -14,7 +14,7 @@ class NewsPresenter(newsView: NewsInterface.NewsView):NewsInterface.NewsPresente
 
 
     override fun networkCall() {
-        model?.getNews(this)
+        model.getNews(this)
     }
 
     override fun uiAutoUpdate(articles: List<Article>) {
