@@ -1,6 +1,6 @@
-package com.example.myapplication.network
+package com.example.myapplication.models.service
 
-import com.example.myapplication.models.NewsResponse
+import com.example.myapplication.models.POJO.NewsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
