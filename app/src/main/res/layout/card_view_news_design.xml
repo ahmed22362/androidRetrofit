@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--ahmed ezz todo dont add any hardcoded dimens in xml it should be added in dimens file-->
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,14 +7,14 @@
     android:layout_height="100dp"
     android:layout_margin="10dp"
     app:cardElevation="6dp">
-
+    <!--ahmed ezz todo use constraint layout instead of linear-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="5dp">
 
-
+        <!--ahmed ezz todo rename it to img_NewsImage-->
         <ImageView
             android:id="@+id/imageview"
             android:layout_width="60dp"
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp">
-
+            <!--ahmed ezz todo rename it to tv_title-->
             <TextView
                 android:id="@+id/title_tv"
                 android:layout_width="wrap_content"
@@ -33,6 +34,7 @@
                 android:text="title"
                 android:textSize="15sp"
                 android:textStyle="bold" />
+            <!--ahmed ezz todo rename it to tv_author-->
             <TextView
                 android:id="@+id/author_tv"
                 android:layout_width="wrap_content"

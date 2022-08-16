@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <!--ahmed ezz todo dont add any hardcoded strings in xml it should be added in strings file-->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,6 +14,7 @@
         android:id="@+id/main_btn"
         android:layout_gravity="center"
         />
+    <!--ahmed ezz todo dont add any hardcoded dimens in xml it should be added in dimens file-->
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerView"
     android:layout_width = "match_parent"

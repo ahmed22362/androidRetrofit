@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface APIService {
 
     @GET("everything")
-    fun getDate(@Query("q")q:String ,@Query("apiKey")apiKey: String): Call<NewsResponse>
+    fun getDate(@Query("q")q:String ,@Query("apiKey")apiKey: String): Call<NewsResponse> //ahmed ezz todo delete this method as it is not used
 
     @GET("top-headlines")
     fun getLatestNews(@Query("sources")source:String ,@Query("apiKey") apiKey:String ):Call<NewsResponse>

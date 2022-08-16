@@ -36,6 +36,12 @@ class CustomAdapter(private val mList: List<Article>) :
         val imageView: ImageView = ItemView.findViewById(R.id.imageview)
         val titleTextView: TextView = ItemView.findViewById(R.id.title_tv)
         val authorTextView: TextView = ItemView.findViewById(R.id.author_tv)
+        //ahmed ezz todo create new method here called bind which take article as param and call it in the onBindViewHolder
+        // and inside it call
+//        Picasso.get().load(article.urlToImage).into(holder.imageView)
+//        holder.titleTextView.text = article.title
+//        holder.authorTextView.text = article.author
+       // but each one of them in separate method for example bindTitle()
     }
 }
 
