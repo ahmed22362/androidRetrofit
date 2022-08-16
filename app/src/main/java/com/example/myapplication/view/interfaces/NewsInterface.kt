@@ -5,7 +5,6 @@ import com.example.myapplication.models.POJO.Article
 interface NewsInterface {
     interface NewsModel {
         fun getNews(presenter: NewsPresenter)
-
     }
 
     interface NewsView {
