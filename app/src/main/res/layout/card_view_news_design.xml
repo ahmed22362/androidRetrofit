@@ -11,14 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:padding="dimen/news_card_padding">
+        android:padding="@dimen/news_card_padding">
 
         <ImageView
             android:id="@+id/img_NewsImage"
             android:layout_width="@dimen/news_card_image_width"
             android:layout_height="@dimen/news_card_image_height"
-            android:layout_marginTop="news_card_IV_margin"
-            android:padding="dimen/news_card_padding"
+            android:layout_marginTop="@dimen/news_card_IV_margin"
+            android:padding="@dimen/news_card_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
