@@ -2,24 +2,23 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_margin="10dp"
-    app:cardElevation="6dp">
+    android:layout_height="@dimen/news_card_height"
+    android:layout_margin="@dimen/news_card_margin"
+    app:cardElevation="@dimen/news_card_cardElevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="dimen/news_card_padding">
 
         <ImageView
             android:id="@+id/img_NewsImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
+            android:layout_width="@dimen/news_card_image_width"
+            android:layout_height="@dimen/news_card_image_height"
+            android:layout_marginTop="news_card_IV_margin"
+            android:padding="dimen/news_card_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +44,7 @@
                 android:id="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="@dimen/news_card_padding"
                 android:text="@string/card_view_tv_Author"
                 android:textSize="@dimen/news_card_textSize" />
 
