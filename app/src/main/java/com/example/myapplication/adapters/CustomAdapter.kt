@@ -10,32 +10,67 @@ import com.example.myapplication.R
 import com.example.myapplication.models.POJO.Article
 import com.squareup.picasso.Picasso
 
-class CustomAdapter(private val mList: List<Article>) :
+class CustomAdapter(private val mList: List<Article>):
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
+    private lateinit var mListener:onItemClickListener
+
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+        mListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.card_view_news_design, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view,mListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = mList[position]
-        Picasso.get().load(article.urlToImage).into(holder.imageView)
-        holder.titleTextView.text = article.title
-        holder.authorTextView.text = article.author
-
+        holder.bind(article)
     }
 
     override fun getItemCount(): Int {
         return mList.size
     }
 
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val imageView: ImageView = ItemView.findViewById(R.id.imageview)
-        val titleTextView: TextView = ItemView.findViewById(R.id.title_tv)
-        val authorTextView: TextView = ItemView.findViewById(R.id.author_tv)
+    inner class ViewHolder(ItemView: View,listener: onItemClickListener) :
+        RecyclerView.ViewHolder(ItemView) {
+
+        private val imageView: ImageView = ItemView.findViewById(R.id.img_NewsImage)
+        private val titleTextView: TextView = ItemView.findViewById(R.id.tv_title)
+        private val authorTextView: TextView = ItemView.findViewById(R.id.tv_author)
+        fun bind(article: Article) {
+            bindImage(article.urlToImage)
+            bindTitle(article.title)
+            bindAuthor(article.author)
+        }
+
+        private fun bindImage(url: String) {
+            Picasso.get().load(url).into(imageView)
+        }
+
+        private fun bindTitle(title: String) {
+            titleTextView.text = title
+        }
+
+        private fun bindAuthor(author: String) {
+            authorTextView.text = author
+        }
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClicked(adapterPosition)
+            }
+        }
+
     }
+
+
+    interface onItemClickListener {
+        fun onItemClicked(position: Int)
+    }
+
 }
 
