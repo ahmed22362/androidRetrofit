@@ -20,7 +20,7 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
     private var newsRecyclerView: RecyclerView? = null
     private var newsPresenter: NewsPresenter? = null
     private var progressBar: ProgressBar? = null
-
+    private lateinit var adapter: NewsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,19 +37,11 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
     }
 
     override fun updateViewData(articles: List<Article>) {
-        var adapter = NewsAdapter(articles)
+        adapter.addNews(articles)
         newsRecyclerView?.layoutManager = LinearLayoutManager(this@NewsActivity)
         newsRecyclerView?.adapter = adapter
 
-        adapter.setOnItemClickListener(object : NewsAdapter.OnItemClickListener {
-            override fun onItemClicked(position: Int) {
-                val intent = Intent(this@NewsActivity, NewsDetailsActivity::class.java)
-                intent.putExtra(Constants.EXTRA.ARTICLE_EXTRA, articles[position])
-                startActivity(intent)
-            }
-        })
     }
-
 
     override fun showProgressBar() {
         if (progressBar != null) {
@@ -73,9 +65,18 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
 
 
     private fun initialize() {
+
+        adapter = NewsAdapter(arrayListOf(), onItemClickListener)
         progressBar = findViewById(R.id.news_progressBar)
         newsRecyclerView = findViewById(R.id.news_recyclerView)
         newsPresenter = NewsPresenter(this, this)
     }
 
+    private val onItemClickListener = object : NewsAdapter.OnItemClickListener {
+        override fun onItemClicked(article: Article) {
+            val intent = Intent(this@NewsActivity, NewsDetailsActivity::class.java)
+            intent.putExtra(Constants.EXTRA.ARTICLE_EXTRA, article)
+            startActivity(intent)
+        }
+    }
 }

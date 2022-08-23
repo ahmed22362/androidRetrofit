@@ -11,25 +11,26 @@ import com.example.myapplication.Utils
 import com.example.myapplication.models.pojo.Article
 
 class NewsAdapter(
-    private val mList: List<Article>
+    private var mList: List<Article>,
+    private var mListener: OnItemClickListener? = null
 ) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
-
-    private lateinit var mListener: OnItemClickListener
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        mListener = listener
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.news_item_design, parent, false)
-        return NewsViewHolder(view, mListener)
+        return NewsViewHolder(view, mListener!!)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val article = mList[position]
         holder.bind(article)
+    }
+
+    fun addNews(articles: List<Article>){
+        mList = articles
+        notifyDataSetChanged()
+
     }
 
     override fun getItemCount(): Int {
@@ -62,7 +63,8 @@ class NewsAdapter(
 
         init {
             itemView.setOnClickListener {
-                listener.onItemClicked(absoluteAdapterPosition)
+                if (mListener != null)
+                    listener.onItemClicked(mList[absoluteAdapterPosition])
             }
         }
 
@@ -70,7 +72,7 @@ class NewsAdapter(
 
 
     interface OnItemClickListener {
-        fun onItemClicked(position: Int)
+        fun onItemClicked(article: Article)
     }
 
 }
