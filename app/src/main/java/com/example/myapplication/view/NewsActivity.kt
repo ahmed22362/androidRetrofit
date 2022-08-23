@@ -63,7 +63,6 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
         Utils.toast("can't cash data check your storage", this)
     }
 
-
     private fun initialize() {
 
         adapter = NewsAdapter(arrayListOf(), onItemClickListener)
