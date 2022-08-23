@@ -30,7 +30,6 @@
 
 <!--    details activity-->
     <dimen name="details_toolBar_image_height">250dp</dimen>
-    <dimen name="details_LinearLayout_padding">15dp</dimen>
-    <dimen name="details_description_tv_lineSpacing">8sp</dimen>
+\    <dimen name="details_description_tv_lineSpacing">8sp</dimen>
 
 </resources>

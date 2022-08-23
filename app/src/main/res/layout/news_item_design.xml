@@ -18,7 +18,7 @@
             android:layout_height="@dimen/news_card_image_height"
             android:layout_margin="@dimen/margin_small"
             android:padding="@dimen/padding_small"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +50,7 @@
                 android:id="@+id/tv_author"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_above_medium"
+                android:padding="@dimen/padding_medium"
                 android:text="@string/card_view_tv_Author"
                 android:textSize="@dimen/text_above_medium"
                 app:layout_constraintEnd_toEndOf="parent"

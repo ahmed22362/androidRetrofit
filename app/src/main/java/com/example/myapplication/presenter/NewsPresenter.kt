@@ -63,12 +63,12 @@ class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
                     response.body()?.let { it.articles?.let { it1 -> view.updateViewData(it1) } }
                     response.body()?.let { it.articles?.let { it1 -> model.saveInDB(it1) } }
                 } else {
-                    Utils.log("There are no news or articles")
+                    Utils.toast("There are no news or articles" , context)
                 }
 
             } else {
                 view.hideProgressBar()
-                Utils.log("there are something wrong")
+                Utils.toast("there are something wrong" , context)
             }
         }
 
