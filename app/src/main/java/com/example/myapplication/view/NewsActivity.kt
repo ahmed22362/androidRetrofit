@@ -17,7 +17,7 @@ import com.example.myapplication.view.interfaces.NewsInterface
 
 class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
 
-    private var newRV: RecyclerView? = null
+    private var newsRecyclerView: RecyclerView? = null
     private var newsPresenter: NewsPresenter? = null
     private var progressBar: ProgressBar? = null
 
@@ -38,8 +38,8 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
 
     override fun updateViewData(articles: List<Article>) {
         var adapter = NewsAdapter(articles)
-        newRV?.layoutManager = LinearLayoutManager(this@NewsActivity)
-        newRV?.adapter = adapter
+        newsRecyclerView?.layoutManager = LinearLayoutManager(this@NewsActivity)
+        newsRecyclerView?.adapter = adapter
 
         adapter.setOnItemClickListener(object : NewsAdapter.OnItemClickListener {
             override fun onItemClicked(position: Int) {
@@ -74,7 +74,7 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
 
     private fun initialize() {
         progressBar = findViewById(R.id.news_progressBar)
-        newRV = findViewById(R.id.news_recyclerView)
+        newsRecyclerView = findViewById(R.id.news_recyclerView)
         newsPresenter = NewsPresenter(this, this)
     }
 
