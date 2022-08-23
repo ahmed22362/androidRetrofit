@@ -13,11 +13,11 @@ data class Article(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     @SerializedName("title")
-    var title: String,
+    var title: String? = null,
     @SerializedName("author")
-    var author: String,
+    var author: String? = null,
     @SerializedName("urlToImage")
-    var urlToImage: String,
+    var urlToImage: String? = null,
     @SerializedName("description")
     var description: String? = null,
     @SerializedName("url")

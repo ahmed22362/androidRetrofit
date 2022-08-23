@@ -1,7 +1,6 @@
 package com.example.myapplication.view
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -14,35 +13,62 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NewsDetailsActivity : AppCompatActivity() {
+
+
+    private var detailsToolBarImage: ImageView? = null
+    private var collapsingToolbar: CollapsingToolbarLayout? = null
+    private var detailsDescriptionTv: TextView? = null
+    private var detailsFAB: FloatingActionButton? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         supportActionBar?.hide();
 
-        val article = intent.getParcelableExtra<Article>(Constants.EXTRA.ARTICLE_EXTRA)
+        initialize()
 
-        val detailsToolBarImage = findViewById<ImageView>(R.id.details_toolBar_image)
-        val collapsingToolbar = findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbar)
-        val detailsDescriptionTv = findViewById<TextView>(R.id.details_description_tv)
-        val detailsFAB = findViewById<FloatingActionButton>(R.id.details_fab)
+        val article = intent.getParcelableExtra<Article>(Constants.EXTRA.ARTICLE_EXTRA)
 
         var intent: Intent? = null
 
         if (article != null) {
-            collapsingToolbar.title = article.title
-            Utils.loadImage(detailsToolBarImage, article.urlToImage)
-            detailsDescriptionTv.text = article.content
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+            bindAll(article, detailsToolBarImage!!)
         } else {
             Utils.toast("there are no data", this)
         }
 
-        detailsFAB.setOnClickListener {
+        detailsFAB?.setOnClickListener {
             if (intent != null) {
                 startActivity(intent)
             } else {
                 Utils.toast("Can't open because there are no data", this)
             }
         }
+    }
+
+    private fun bindAll(article: Article, imageView: ImageView) {
+        article?.urlToImage?.let { bindImage(it, imageView) }
+        article?.title?.let { bindTitle(it) }
+        article?.description?.let { bindDescription(it) }
+    }
+
+    private fun bindImage(url: String, imageView: ImageView) {
+        Utils.loadImage(imageView, url)
+    }
+
+    private fun bindTitle(title: String) {
+        collapsingToolbar?.title = title
+    }
+
+    private fun bindDescription(description: String) {
+        detailsDescriptionTv?.text = description
+    }
+
+    private fun initialize() {
+        detailsToolBarImage = findViewById(R.id.details_toolBar_image)
+        collapsingToolbar = findViewById(R.id.collapsingToolbar)
+        detailsDescriptionTv = findViewById(R.id.details_description_tv)
+        detailsFAB = findViewById(R.id.details_fab)
     }
 }

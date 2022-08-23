@@ -44,9 +44,9 @@ class NewsAdapter(
         private val tvTitle: TextView = ItemView.findViewById(R.id.tv_title)
         private val tvAuthor: TextView = ItemView.findViewById(R.id.tv_author)
         fun bind(article: Article) {
-            bindImage(article.urlToImage)
-            bindTitle(article.title)
-            bindAuthor(article.author)
+            article.urlToImage?.let { bindImage(it) }
+            article.title?.let { bindTitle(it) }
+            article.author?.let { bindAuthor(it) }
         }
 
         private fun bindImage(url: String) {
