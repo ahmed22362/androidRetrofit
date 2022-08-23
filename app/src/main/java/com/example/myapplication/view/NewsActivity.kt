@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.Constants
 import com.example.myapplication.R
 import com.example.myapplication.Utils
 import com.example.myapplication.adapters.NewsAdapter
@@ -17,7 +18,7 @@ import com.example.myapplication.view.interfaces.NewsInterface
 class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
 
     private var newRV: RecyclerView? = null
-    private var presenter: NewsPresenter? = null
+    private var newsPresenter: NewsPresenter? = null
     private var progressBar: ProgressBar? = null
 
 
@@ -27,11 +28,11 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
 
         initialize()
 
-        if (presenter?.checkForInternet(this@NewsActivity) == true) {
-            presenter?.networkCall()
+        if (newsPresenter?.checkForInternet(this@NewsActivity) == true) {
+            newsPresenter?.networkCall()
         } else {
             Utils.toast("there are no internet connection", this)
-            presenter?.getCachedData()
+            newsPresenter?.getCachedData()
         }
     }
 
@@ -43,7 +44,7 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
         adapter.setOnItemClickListener(object : NewsAdapter.OnItemClickListener {
             override fun onItemClicked(position: Int) {
                 val intent = Intent(this@NewsActivity, NewsDetailsActivity::class.java)
-                intent.putExtra("main", articles[position])
+                intent.putExtra(Constants.EXTRA.ARTICLE_EXTRA, articles[position])
                 startActivity(intent)
             }
         })
@@ -66,7 +67,7 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
         Utils.toast("something happened try again later", this)
     }
 
-    override fun cashError() {
+    override fun cacheError() {
         Utils.toast("can't cash data check your storage", this)
     }
 
@@ -74,7 +75,7 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
     private fun initialize() {
         progressBar = findViewById(R.id.news_progressBar)
         newRV = findViewById(R.id.news_recyclerView)
-        presenter = NewsPresenter(this, this)
+        newsPresenter = NewsPresenter(this, this)
     }
 
 }

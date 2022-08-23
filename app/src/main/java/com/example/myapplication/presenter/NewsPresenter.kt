@@ -45,7 +45,7 @@ class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
     }
 
     override fun cashError() {
-        view.cashError()
+        view.cacheError()
     }
 
     override fun uiAutoUpdate(articles: List<Article>) {
