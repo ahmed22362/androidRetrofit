@@ -1,23 +1,22 @@
 package com.example.myapplication.models.database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
+import com.example.myapplication.Constants
 
 
 class DatabaseGenerator {
 
-    companion object {
-         var INSTANCE: AppDatabase? = null
-    }
+    private var instance: AppDatabase? = null
+
+
     fun getInstance(context: Context): AppDatabase {
-        if (INSTANCE == null) {
-            Log.e("room","room created")
+        if (instance == null) {
             synchronized(AppDatabase::class) {
-                INSTANCE = buildRoomDB(context)
+                instance = buildRoomDB(context)
             }
         }
-        return INSTANCE!!
+        return instance!!
     }
 
 
@@ -25,6 +24,6 @@ class DatabaseGenerator {
         Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "Articles.db"
+            Constants.DATABASE.DATABASE_NAME
         ).allowMainThreadQueries().build()
 }

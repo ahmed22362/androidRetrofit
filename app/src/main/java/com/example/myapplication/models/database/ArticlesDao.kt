@@ -4,17 +4,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myapplication.models.POJO.Article
+import com.example.myapplication.models.pojo.Article
 
 @Dao
 interface ArticlesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertArticles(articles:List<Article>)
+    fun insertArticles(articles: List<Article>)
 
     @Query("SELECT * FROM Articles")
     fun getAllArticles(): List<Article>
 
     @Query("DELETE FROM Articles")
-    fun deleteAll():Int
+    fun deleteAll(): Int
 }

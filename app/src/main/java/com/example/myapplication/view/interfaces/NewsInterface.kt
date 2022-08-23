@@ -1,11 +1,15 @@
 package com.example.myapplication.view.interfaces
 
-import com.example.myapplication.models.POJO.Article
+import android.content.Context
+import com.example.myapplication.models.pojo.Article
+import com.example.myapplication.models.pojo.NewsResponse
+import retrofit2.Callback
 
 interface NewsInterface {
     interface NewsModel {
-        fun getNews(presenter: NewsPresenter)
-        fun makeCash(presenter: NewsPresenter)
+        fun getNews(call: Callback<NewsResponse>)
+        fun getCache(): List<Article>?
+        fun saveInDB(articles: List<Article>)
     }
 
     interface NewsView {
@@ -23,7 +27,7 @@ interface NewsInterface {
 
         fun uiAutoUpdate(articles: List<Article>)
 
-        fun getCashedData()
+        fun getCachedData()
 
         fun loading()
         fun doneLoading()

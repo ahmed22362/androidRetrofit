@@ -2,30 +2,32 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/news_card_height"
-    android:layout_margin="@dimen/news_card_margin"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_medium"
     app:cardElevation="@dimen/news_card_cardElevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="@dimen/news_card_padding">
+        android:padding="@dimen/padding_small">
 
         <ImageView
             android:id="@+id/img_NewsImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/news_card_image_height"
-            android:layout_margin="@dimen/news_card_IV_margin"
-            android:padding="@dimen/news_card_padding"
+            android:layout_margin="@dimen/margin_small"
+            android:padding="@dimen/padding_small"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayoutCompat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/news_card_IV_margin"
+            android:layout_margin="@dimen/margin_small"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,22 +35,29 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/card_view_tv_title"
-                android:textSize="@dimen/news_card_textSize"
+                android:textSize="@dimen/text_above_medium"
                 android:textStyle="bold"
-                />
+                android:padding="@dimen/padding_small"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_author"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/news_card_padding"
+                android:padding="@dimen/padding_above_medium"
                 android:text="@string/card_view_tv_Author"
-                android:textSize="@dimen/news_card_textSize" />
+                android:textSize="@dimen/text_above_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

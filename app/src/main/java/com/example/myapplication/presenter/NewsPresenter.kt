@@ -1,22 +1,35 @@
 package com.example.myapplication.presenter
 
-import com.example.myapplication.models.POJO.Article
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import com.example.myapplication.Constants
+import com.example.myapplication.Utils
+import com.example.myapplication.models.pojo.Article
+import com.example.myapplication.models.pojo.NewsResponse
 import com.example.myapplication.models.repo.NewsRepo
 import com.example.myapplication.view.interfaces.NewsInterface
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class NewsPresenter(newsView: NewsInterface.NewsView):NewsInterface.NewsPresenter{
+class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
+    NewsInterface.NewsPresenter {
 
     private val view: NewsInterface.NewsView = newsView
-    private val model: NewsInterface.NewsModel = NewsRepo()
-
+    private val model: NewsInterface.NewsModel = NewsRepo(context)
 
 
     override fun networkCall() {
-        model.getNews(this)
+        view.showProgressBar()
+        model.getNews(call)
     }
 
-    override fun getCashedData() {
-        model.makeCash(this)
+    override fun getCachedData() {
+        if (model.getCache() != null) {
+            view.updateViewData(model.getCache()!!)
+        }
     }
 
     override fun loading() {
@@ -38,4 +51,58 @@ class NewsPresenter(newsView: NewsInterface.NewsView):NewsInterface.NewsPresente
     override fun uiAutoUpdate(articles: List<Article>) {
         view.updateViewData(articles)
     }
+
+    private val call = object : Callback<NewsResponse> {
+        override fun onResponse(
+            call: Call<NewsResponse>,
+            response: Response<NewsResponse>
+        ) {
+            if (response.body()?.status.equals(Constants.API.RESPONSE_OK)) {
+                view.hideProgressBar()
+                if (response.body()?.articles?.size!! > 0) {
+                    response.body()?.let { it.articles?.let { it1 -> view.updateViewData(it1) } }
+                    response.body()?.let { it.articles?.let { it1 -> model.saveInDB(it1) } }
+                } else {
+                    Utils.log("There are no news or articles")
+                }
+
+            } else {
+                view.hideProgressBar()
+                Utils.log("there are something wrong")
+            }
+        }
+
+        override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+            view.hideProgressBar()
+            view.showError()
+        }
+    }
+
+
+    fun checkForInternet(context: Context): Boolean {
+
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            val network = connectivityManager.activeNetwork ?: return false
+            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+            return when {
+
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+                else -> false
+            }
+        } else {
+            @Suppress("DEPRECATION") val networkInfo =
+                connectivityManager.activeNetworkInfo ?: return false
+            @Suppress("DEPRECATION")
+            return networkInfo.isConnected
+        }
+    }
+
 }
