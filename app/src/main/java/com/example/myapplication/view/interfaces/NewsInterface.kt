@@ -19,7 +19,7 @@ interface NewsInterface {
         fun hideProgressBar()
 
         fun showError()
-        fun cashError()
+        fun cacheError()
     }
 
     interface NewsPresenter {
