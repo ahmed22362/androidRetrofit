@@ -3,7 +3,7 @@ package com.example.myapplication.models.pojo
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.myapplication.Constants
+import com.example.myapplication.utils.Constants
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

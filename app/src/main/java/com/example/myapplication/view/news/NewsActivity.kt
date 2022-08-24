@@ -1,4 +1,4 @@
-package com.example.myapplication.view
+package com.example.myapplication.view.news
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,12 +7,13 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Constants
+import com.example.myapplication.utils.Constants
 import com.example.myapplication.R
-import com.example.myapplication.Utils
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.adapters.NewsAdapter
 import com.example.myapplication.models.pojo.Article
 import com.example.myapplication.presenter.NewsPresenter
+import com.example.myapplication.view.news_details.NewsDetailsActivity
 import com.example.myapplication.view.interfaces.NewsInterface
 
 class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
@@ -31,7 +32,7 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
         if (newsPresenter?.checkForInternet(this@NewsActivity) == true) {
             newsPresenter?.networkCall()
         } else {
-            Utils.toast("there are no internet connection", this)
+            Utils.toast(R.string.no_internet_connection, this)
             newsPresenter?.getCachedData()
         }
     }
@@ -56,11 +57,19 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
     }
 
     override fun showError() {
-        Utils.toast("something happened try again later", this)
+        Utils.toast(R.string.show_error, this)
     }
 
     override fun cacheError() {
-        Utils.toast("can't cash data check your storage", this)
+        Utils.toast(R.string.cash_error, this)
+    }
+
+    override fun noArticlesError() {
+        Utils.toast(R.string.no_articles, this)
+    }
+
+    override fun badResponseError() {
+        Utils.toast(R.string.bad_response_error, this)
     }
 
     private fun initialize() {

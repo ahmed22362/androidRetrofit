@@ -2,7 +2,7 @@ package com.example.myapplication.models.database
 
 import android.content.Context
 import androidx.room.Room
-import com.example.myapplication.Constants
+import com.example.myapplication.utils.Constants
 
 
 class DatabaseGenerator {
@@ -25,5 +25,6 @@ class DatabaseGenerator {
             context,
             AppDatabase::class.java,
             Constants.DATABASE.DATABASE_NAME
-        ).allowMainThreadQueries().build()
+        ).fallbackToDestructiveMigration()
+            .allowMainThreadQueries().build()
 }

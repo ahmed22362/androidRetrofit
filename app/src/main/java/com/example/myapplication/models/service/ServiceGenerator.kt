@@ -1,6 +1,6 @@
 package com.example.myapplication.models.service
 
-import com.example.myapplication.Constants
+import com.example.myapplication.utils.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

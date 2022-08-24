@@ -37,10 +37,10 @@
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/padding_small"
                 android:text="@string/card_view_tv_title"
                 android:textSize="@dimen/text_above_medium"
                 android:textStyle="bold"
-                android:padding="@dimen/padding_small"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

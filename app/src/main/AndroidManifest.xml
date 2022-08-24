@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".view.NewsDetailsActivity"
+            android:name=".view.news_details.NewsDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.NewsActivity"
+            android:name=".view.news.NewsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
