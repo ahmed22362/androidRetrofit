@@ -7,24 +7,22 @@ import com.example.myapplication.models.database.AppDatabase
 import com.example.myapplication.models.database.DatabaseGenerator
 import com.example.myapplication.models.service.APIService
 import com.example.myapplication.models.service.ServiceGenerator
-import com.example.myapplication.Constants
-import com.example.myapplication.Utils
+import com.example.myapplication.utils.Constants
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.view.interfaces.NewsInterface
 import retrofit2.Callback
 
 class NewsRepo(context: Context) : NewsInterface.NewsModel {
 
-
-    private var ApiService: APIService? = null
+    private var _apiService: APIService? = null
     private var appDatabase: AppDatabase? = DatabaseGenerator().getInstance(context)
 
-
     init {
-        ApiService = ServiceGenerator.buildService(APIService::class.java)
+        _apiService = ServiceGenerator.buildService(APIService::class.java)
     }
 
     override fun getNews(call: Callback<NewsResponse>) {
-        ApiService?.getLatestNews(Constants.API.SOURCE, Constants.API.API_KEY)
+        _apiService?.getLatestNews(Constants.API.SOURCE, Constants.API.API_KEY)
             ?.enqueue(call)
     }
 

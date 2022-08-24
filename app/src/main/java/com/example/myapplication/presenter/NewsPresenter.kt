@@ -4,8 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.example.myapplication.Constants
-import com.example.myapplication.Utils
+import com.example.myapplication.utils.Constants
 import com.example.myapplication.models.pojo.Article
 import com.example.myapplication.models.pojo.NewsResponse
 import com.example.myapplication.models.repo.NewsRepo
@@ -57,18 +56,11 @@ class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
             call: Call<NewsResponse>,
             response: Response<NewsResponse>
         ) {
+            view.hideProgressBar()
             if (response.body()?.status.equals(Constants.API.RESPONSE_OK)) {
-                view.hideProgressBar()
-                if (response.body()?.articles?.size!! > 0) {
-                    response.body()?.let { it.articles?.let { it1 -> view.updateViewData(it1) } }
-                    response.body()?.let { it.articles?.let { it1 -> model.saveInDB(it1) } }
-                } else {
-                    Utils.toast("There are no news or articles" , context)
-                }
-
+                responseOk(response)
             } else {
-                view.hideProgressBar()
-                Utils.toast("there are something wrong" , context)
+                responseBad()
             }
         }
 
@@ -78,23 +70,28 @@ class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
         }
     }
 
+    fun responseOk(response: Response<NewsResponse>) {
+        if (response.body()?.articles?.size!! > 0) {
+            response.body()?.let { it.articles?.let { it1 -> view.updateViewData(it1) } }
+            response.body()?.let { it.articles?.let { it1 -> model.saveInDB(it1) } }
+        } else {
+            view.noArticlesError()
+        }
+    }
+
+    fun responseBad() {
+        view.badResponseError()
+    }
 
     fun checkForInternet(context: Context): Boolean {
-
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
             val network = connectivityManager.activeNetwork ?: return false
             val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
-
             return when {
-
                 activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-
                 activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-
                 else -> false
             }
         } else {

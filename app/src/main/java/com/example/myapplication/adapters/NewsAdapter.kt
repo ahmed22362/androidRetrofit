@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.Utils
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.models.pojo.Article
 
 class NewsAdapter(
@@ -18,8 +18,8 @@ class NewsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.news_item_design, parent, false)
-        return NewsViewHolder(view, mListener!!)
+            .inflate(R.layout.news_item, parent, false)
+        return NewsViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
@@ -37,7 +37,7 @@ class NewsAdapter(
         return mList.size
     }
 
-    inner class NewsViewHolder(ItemView: View, listener: OnItemClickListener) :
+    inner class NewsViewHolder(ItemView: View, listener: OnItemClickListener?) :
         RecyclerView.ViewHolder(ItemView) {
 
         private val imgNewsImage: ImageView = ItemView.findViewById(R.id.img_NewsImage)
@@ -64,7 +64,7 @@ class NewsAdapter(
         init {
             itemView.setOnClickListener {
                 if (mListener != null)
-                    listener.onItemClicked(mList[absoluteAdapterPosition])
+                    listener?.onItemClicked(mList[absoluteAdapterPosition])
             }
         }
 

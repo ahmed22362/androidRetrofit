@@ -1,6 +1,5 @@
 package com.example.myapplication.view.interfaces
 
-import android.content.Context
 import com.example.myapplication.models.pojo.Article
 import com.example.myapplication.models.pojo.NewsResponse
 import retrofit2.Callback
@@ -20,6 +19,8 @@ interface NewsInterface {
 
         fun showError()
         fun cacheError()
+        fun noArticlesError()
+        fun badResponseError()
     }
 
     interface NewsPresenter {

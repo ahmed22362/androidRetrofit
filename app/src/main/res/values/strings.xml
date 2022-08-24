@@ -19,4 +19,12 @@
       geeks and we are only a fraction of it yet.
   </string>
     <string name="details_fab_desc">GoTo</string>
+    <string name="show_error">something happened try again later</string>
+    <string name="no_articles">There are no news or articles</string>
+    <string name="cash_error">can\'t cash data check your storage</string>
+    <string name="bad_response_error">there are something wrong</string>
+    <string name="no_internet_connection">there are no internet connection</string>
+
+<!--details activity-->
+    <string name="no_article_received">There are no article or data to show</string>
 </resources>
