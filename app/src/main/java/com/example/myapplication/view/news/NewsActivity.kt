@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.utils.Constants
 import com.example.myapplication.R
 import com.example.myapplication.utils.Utils
-import com.example.myapplication.adapters.NewsAdapter
+import com.example.myapplication.view.news.adapters.NewsAdapter
 import com.example.myapplication.models.pojo.Article
 import com.example.myapplication.presenter.NewsPresenter
 import com.example.myapplication.view.news_details.NewsDetailsActivity

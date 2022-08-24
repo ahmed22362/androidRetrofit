@@ -50,18 +50,17 @@ class NewsDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindAll(article: Article?, imageView: ImageView?) {
-        if (article != null) {
-            if (imageView != null) {
-                bindImage(article.url, imageView)
-            }
-            bindTitle(article.title)
-            bindDescription(article.description)
+    private fun bindAll(article: Article, imageView: ImageView?) {
+        if (imageView != null) {
+            bindImage(article.urlToImage, imageView)
         }
+        bindTitle(article.title)
+        bindDescription(article.description)
     }
 
     private fun bindImage(url: String?, imageView: ImageView) {
-        Utils.loadImage(imageView, url)
+        if (url != null)
+            Utils.loadImage(imageView, url)
     }
 
     private fun bindTitle(title: String?) {
