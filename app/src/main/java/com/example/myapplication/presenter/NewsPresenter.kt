@@ -4,10 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.example.myapplication.utils.Constants
 import com.example.myapplication.models.pojo.Article
 import com.example.myapplication.models.pojo.NewsResponse
 import com.example.myapplication.models.repo.NewsRepo
+import com.example.myapplication.utils.Constants
 import com.example.myapplication.view.interfaces.NewsInterface
 import retrofit2.Call
 import retrofit2.Callback
@@ -102,10 +102,10 @@ class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
     }
 
 
-    fun getNews(context: Context){
-        if (checkForInternet(context)){
+    fun getNews(context: Context) {
+        if (checkForInternet(context)) {
             networkCall()
-        }else{
+        } else {
             getCachedData()
         }
     }

@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.utils.Utils
 import com.example.myapplication.models.pojo.Article
+import com.example.myapplication.utils.Utils
 
 class NewsAdapter(
     private var mList: List<Article>,

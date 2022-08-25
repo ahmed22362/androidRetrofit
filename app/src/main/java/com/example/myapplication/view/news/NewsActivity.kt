@@ -1,20 +1,20 @@
 package com.example.myapplication.view.news
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.utils.Constants
 import com.example.myapplication.R
-import com.example.myapplication.utils.Utils
-import com.example.myapplication.view.news.adapters.NewsAdapter
 import com.example.myapplication.models.pojo.Article
 import com.example.myapplication.presenter.NewsPresenter
-import com.example.myapplication.view.news_details.NewsDetailsActivity
+import com.example.myapplication.utils.Constants
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.view.interfaces.NewsInterface
+import com.example.myapplication.view.news.adapters.NewsAdapter
+import com.example.myapplication.view.news_details.NewsDetailsActivity
 
 class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
 

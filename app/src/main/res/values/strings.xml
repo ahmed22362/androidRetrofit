@@ -27,4 +27,5 @@
 
 <!--details activity-->
     <string name="no_article_received">There are no article or data to show</string>
+    <string name="details_button_text">Open in browser</string>
 </resources>
