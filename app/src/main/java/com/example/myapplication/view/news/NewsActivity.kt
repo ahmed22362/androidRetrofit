@@ -82,8 +82,8 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
 
     private fun initializeViews() {
         adapter = NewsAdapter(arrayListOf(), onItemClickListener)
-        progressBar = findViewById(R.id.news_progressBar)
-        newsRecyclerView = findViewById(R.id.news_recyclerView)
+        progressBar = findViewById(R.id.progressbar_news)
+        newsRecyclerView = findViewById(R.id.recyclerView_news)
     }
 
     private fun initializePresenter() {
