@@ -14,16 +14,14 @@ import com.example.myapplication.utils.Constants
 import com.example.myapplication.utils.Utils
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
-
 class NewsDetailsActivity : AppCompatActivity() {
 
-    private var detailsToolBarImage: ImageView? = null
-    private var detailsCollapsingToolbar: CollapsingToolbarLayout? = null
-    private var detailsDescriptionTv: TextView? = null
-    private var detailsOpenBrowserBtn: Button? = null
-    private var detailsToolbar: Toolbar? = null
-    private var detailsTitleTv: TextView? = null
-
+    private var imageToolbarDetails: ImageView? = null
+    private var collapsingToolbarDetails: CollapsingToolbarLayout? = null
+    private var tvDescriptionDetails: TextView? = null
+    private var btnOpenBrowserDetails: Button? = null
+    private var toolbarDetails: Toolbar? = null
+    private var tvTitleDetails: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,56 +29,58 @@ class NewsDetailsActivity : AppCompatActivity() {
 
         initializeViews()
 
-        setSupportActionBar(detailsToolbar)
+        setSupportActionBar(toolbarDetails)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }
 
-
         val article = intent.getParcelableExtra<Article>(Constants.EXTRA.ARTICLE_EXTRA)
 
-
         if (article != null) {
-            detailsToolBarImage?.let { bindArticleData(article, it) }
+            bindArticleData(article)
         } else {
             Utils.toast(R.string.no_article_received, this)
         }
 
-        detailsOpenBrowserBtn?.setOnClickListener {
+        btnOpenBrowserDetails?.setOnClickListener {
             onBrowserButtonClick(article)
         }
 
-        detailsToolbar?.setNavigationOnClickListener {
+        toolbarDetails?.setNavigationOnClickListener {
             finish()
         }
     }
 
-    private fun bindArticleData(article: Article, imageView: ImageView) {
-        bindImage(article.urlToImage, imageView)
+    private fun bindArticleData(article: Article) {
+        bindImage(article.urlToImage)
         bindTitle(article.title)
         bindDescription(article.description)
     }
 
-    private fun bindImage(url: String?, imageView: ImageView) {
-        Utils.loadImage(imageView, url)
+    private fun bindImage(url: String?) {
+        if (imageToolbarDetails != null) {
+            imageToolbarDetails?.let { Utils.loadImage(it, url) }
+        } else {
+            Utils.log("image view is null")
+        }
     }
 
     private fun bindTitle(title: String?) {
-        detailsCollapsingToolbar?.title = title ?: ""
-        detailsTitleTv?.text = title ?: ""
+        collapsingToolbarDetails?.title = title ?: ""
+        tvTitleDetails?.text = title ?: ""
     }
 
     private fun bindDescription(description: String?) {
-        detailsDescriptionTv?.text = description ?: ""
+        tvDescriptionDetails?.text = description ?: ""
     }
 
     private fun initializeViews() {
-        detailsToolBarImage = findViewById(R.id.details_toolBar_image)
-        detailsCollapsingToolbar = findViewById(R.id.collapsingToolbar)
-        detailsDescriptionTv = findViewById(R.id.details_description_tv)
-        detailsOpenBrowserBtn = findViewById(R.id.details_open_browser_btn)
-        detailsToolbar = findViewById(R.id.details_toolbar)
-        detailsTitleTv = findViewById(R.id.details_title_tv)
+        imageToolbarDetails = findViewById(R.id.iv_toolBar_details)
+        collapsingToolbarDetails = findViewById(R.id.collapsingToolbar_details)
+        tvDescriptionDetails = findViewById(R.id.tv_description_details)
+        btnOpenBrowserDetails = findViewById(R.id.btn_open_browser_details)
+        toolbarDetails = findViewById(R.id.toolbar_details)
+        tvTitleDetails = findViewById(R.id.tv_title_details)
     }
 
     private fun onBrowserButtonClick(article: Article?) {
