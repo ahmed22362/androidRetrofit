@@ -19,7 +19,6 @@ class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
     private val view: NewsInterface.NewsView = newsView
     private val model: NewsInterface.NewsModel = NewsRepo(context)
 
-
     override fun networkCall() {
         view.showProgressBar()
         model.getNews(call)
@@ -83,7 +82,7 @@ class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
         view.badResponseError()
     }
 
-    fun checkForInternet(context: Context): Boolean {
+    private fun checkForInternet(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -102,4 +101,12 @@ class NewsPresenter(newsView: NewsInterface.NewsView, context: Context) :
         }
     }
 
+
+    fun getNews(context: Context){
+        if (checkForInternet(context)){
+            networkCall()
+        }else{
+            getCachedData()
+        }
+    }
 }
