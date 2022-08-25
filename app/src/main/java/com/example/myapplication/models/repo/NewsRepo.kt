@@ -14,15 +14,15 @@ import retrofit2.Callback
 
 class NewsRepo(context: Context) : NewsInterface.NewsModel {
 
-    private var _apiService: APIService? = null
+    private var apiService: APIService? = null
     private var appDatabase: AppDatabase? = DatabaseGenerator().getInstance(context)
 
     init {
-        _apiService = ServiceGenerator.buildService(APIService::class.java)
+        apiService = ServiceGenerator.buildService(APIService::class.java)
     }
 
     override fun getNews(call: Callback<NewsResponse>) {
-        _apiService?.getLatestNews(Constants.API.SOURCE, Constants.API.API_KEY)
+        apiService?.getLatestNews(Constants.API.SOURCE, Constants.API.API_KEY)
             ?.enqueue(call)
     }
 

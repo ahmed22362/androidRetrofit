@@ -18,19 +18,18 @@ class NewsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.news_item, parent, false)
+            .inflate(R.layout.item_news, parent, false)
         return NewsViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val article = mList[position]
-        holder.bind(article)
+        holder.bindArticleData(article)
     }
 
-    fun addNews(articles: List<Article>){
+    fun addNews(articles: List<Article>) {
         mList = articles
         notifyDataSetChanged()
-
     }
 
     override fun getItemCount(): Int {
@@ -43,22 +42,23 @@ class NewsAdapter(
         private val imgNewsImage: ImageView = ItemView.findViewById(R.id.img_NewsImage)
         private val tvTitle: TextView = ItemView.findViewById(R.id.tv_title)
         private val tvAuthor: TextView = ItemView.findViewById(R.id.tv_author)
-        fun bind(article: Article) {
-            article.urlToImage?.let { bindImage(it) }
-            article.title?.let { bindTitle(it) }
-            article.author?.let { bindAuthor(it) }
+
+        fun bindArticleData(article: Article) {
+            bindAuthor(article.author)
+            bindTitle(article.title)
+            bindImage(article.urlToImage)
         }
 
-        private fun bindImage(url: String) {
+        private fun bindImage(url: String?) {
             Utils.loadImage(imgNewsImage, url)
         }
 
-        private fun bindTitle(title: String) {
-            tvTitle.text = title
+        private fun bindTitle(title: String?) {
+            tvTitle.text = title ?: ""
         }
 
-        private fun bindAuthor(author: String) {
-            tvAuthor.text = author
+        private fun bindAuthor(author: String?) {
+            tvAuthor.text = author ?: ""
         }
 
         init {
@@ -69,7 +69,6 @@ class NewsAdapter(
         }
 
     }
-
 
     interface OnItemClickListener {
         fun onItemClicked(article: Article)

@@ -27,21 +27,16 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initialize()
+        initializeViewData()
 
-        if (newsPresenter?.checkForInternet(this@NewsActivity) == true) {
-            newsPresenter?.networkCall()
-        } else {
-            Utils.toast(R.string.no_internet_connection, this)
-            newsPresenter?.getCachedData()
-        }
+        newsPresenter?.getNews(this)
+
     }
 
     override fun updateViewData(articles: List<Article>) {
         adapter.addNews(articles)
         newsRecyclerView?.layoutManager = LinearLayoutManager(this@NewsActivity)
         newsRecyclerView?.adapter = adapter
-
     }
 
     override fun showProgressBar() {
@@ -72,12 +67,9 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
         Utils.toast(R.string.bad_response_error, this)
     }
 
-    private fun initialize() {
-
-        adapter = NewsAdapter(arrayListOf(), onItemClickListener)
-        progressBar = findViewById(R.id.news_progressBar)
-        newsRecyclerView = findViewById(R.id.news_recyclerView)
-        newsPresenter = NewsPresenter(this, this)
+    private fun initializeViewData() {
+        initializePresenter()
+        initializeViews()
     }
 
     private val onItemClickListener = object : NewsAdapter.OnItemClickListener {
@@ -86,5 +78,15 @@ class NewsActivity : AppCompatActivity(), NewsInterface.NewsView {
             intent.putExtra(Constants.EXTRA.ARTICLE_EXTRA, article)
             startActivity(intent)
         }
+    }
+
+    private fun initializeViews() {
+        adapter = NewsAdapter(arrayListOf(), onItemClickListener)
+        progressBar = findViewById(R.id.news_progressBar)
+        newsRecyclerView = findViewById(R.id.news_recyclerView)
+    }
+
+    private fun initializePresenter() {
+        newsPresenter = NewsPresenter(this, this)
     }
 }

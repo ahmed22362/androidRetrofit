@@ -16,7 +16,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NewsDetailsActivity : AppCompatActivity() {
 
-
     private var detailsToolBarImage: ImageView? = null
     private var collapsingToolbar: CollapsingToolbarLayout? = null
     private var detailsDescriptionTv: TextView? = null
@@ -28,21 +27,20 @@ class NewsDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_details)
         supportActionBar?.hide();
 
-        initialize()
+        initializeViews()
 
         val article = intent.getParcelableExtra<Article>(Constants.EXTRA.ARTICLE_EXTRA)
 
-        var intent: Intent? = null
 
         if (article != null) {
-            bindAll(article, detailsToolBarImage)
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+            detailsToolBarImage?.let { bindArticleData(article, it) }
         } else {
             Utils.toast(R.string.no_article_received, this)
         }
 
         detailsFAB?.setOnClickListener {
-            if (intent != null) {
+            if (article?.url != null) {
+                var intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
                 startActivity(intent)
             } else {
                 Utils.toast(R.string.no_article_received, this)
@@ -50,33 +48,29 @@ class NewsDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindAll(article: Article, imageView: ImageView?) {
-        if (imageView != null) {
-            bindImage(article.urlToImage, imageView)
-        }
+    private fun bindArticleData(article: Article, imageView: ImageView) {
+        bindImage(article.urlToImage, imageView)
         bindTitle(article.title)
         bindDescription(article.description)
     }
 
     private fun bindImage(url: String?, imageView: ImageView) {
-        if (url != null)
-            Utils.loadImage(imageView, url)
+        Utils.loadImage(imageView, url)
     }
 
     private fun bindTitle(title: String?) {
-        if (title != null)
-            collapsingToolbar?.title = title
+        collapsingToolbar?.title = title ?: ""
     }
 
     private fun bindDescription(description: String?) {
-        if (description != null)
-            detailsDescriptionTv?.text = description
+        detailsDescriptionTv?.text = description ?: ""
     }
 
-    private fun initialize() {
+    private fun initializeViews() {
         detailsToolBarImage = findViewById(R.id.details_toolBar_image)
         collapsingToolbar = findViewById(R.id.collapsingToolbar)
         detailsDescriptionTv = findViewById(R.id.details_description_tv)
         detailsFAB = findViewById(R.id.details_fab)
     }
+
 }

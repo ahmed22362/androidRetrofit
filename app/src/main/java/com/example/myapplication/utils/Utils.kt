@@ -16,8 +16,7 @@ object Utils {
     }
 
     fun loadImage(imageView: ImageView, url: String?) {
-        if (url != null)
-            Picasso.get().load(url).placeholder(R.drawable.placeholder).into(imageView)
+        Picasso.get().load(url).placeholder(R.drawable.placeholder).into(imageView)
     }
 
     fun toast(message: String, context: Context) {
