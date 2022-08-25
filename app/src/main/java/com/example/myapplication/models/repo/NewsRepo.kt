@@ -1,10 +1,10 @@
 package com.example.myapplication.models.repo
 
 import android.content.Context
-import com.example.myapplication.models.pojo.Article
-import com.example.myapplication.models.pojo.NewsResponse
 import com.example.myapplication.models.database.AppDatabase
 import com.example.myapplication.models.database.DatabaseGenerator
+import com.example.myapplication.models.pojo.Article
+import com.example.myapplication.models.pojo.NewsResponse
 import com.example.myapplication.models.service.APIService
 import com.example.myapplication.models.service.ServiceGenerator
 import com.example.myapplication.utils.Constants
