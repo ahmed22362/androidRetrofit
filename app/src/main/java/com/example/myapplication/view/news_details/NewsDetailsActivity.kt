@@ -43,7 +43,7 @@ class NewsDetailsActivity : AppCompatActivity() {
         }
 
         btnOpenBrowserDetails?.setOnClickListener {
-            onBrowserButtonClick(article)
+            openBrowser(article?.url)
         }
 
         toolbarDetails?.setNavigationOnClickListener {
@@ -83,12 +83,12 @@ class NewsDetailsActivity : AppCompatActivity() {
         tvTitleDetails = findViewById(R.id.tv_title_details)
     }
 
-    private fun onBrowserButtonClick(article: Article?) {
-        if (article?.url != null) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+    private fun openBrowser(url:String?) {
+        if (url != null) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         } else {
-            Utils.toast(R.string.no_article_received, this)
+            Utils.toast(R.string.url_not_valid, this)
         }
     }
 }
